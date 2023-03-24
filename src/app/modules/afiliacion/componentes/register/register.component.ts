@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Persona } from '../../interfaces/Persona';
+import { ActivatedRoute } from '@angular/router';
+import { CausantesService } from '../../servicios/causantes.service';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   frmRegistro: FormGroup;
-  constructor(private fb: FormBuilder) {
+  persona: Persona;
+  constructor(
+    private fb: FormBuilder,
+    private router: ActivatedRoute,
+    private causanteService: CausantesService
+  ) {
+    this.persona = {} as Persona;
     this.frmRegistro = this.fb.group({
       identificacion: [
         '',
@@ -39,8 +48,21 @@ export class RegisterComponent implements OnInit {
       genero: ['', Validators.required],
     });
   }
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const { id } = this.router.snapshot.params;
+    if (id) {
+      this.causanteService.getpersona(id).subscribe((ele: Persona) => {
+        this.frmRegistro.patchValue({
+          identificacion: ele.identificacion,
+          tipoIdentificacion: ele.tipoIdentificacion,
+          nombres: ele.nombres,
+          apellidos: ele.apellidos,
+          fechaNacimiento: ele.fechaNacimiento,
+          genero: ele.genero,
+        });
+      });
+    }
+  }
 
   validateInputs(field: string, type: string) {
     return (
@@ -48,5 +70,16 @@ export class RegisterComponent implements OnInit {
       this.frmRegistro.controls?.[field].touched &&
       this.frmRegistro.get(field)?.hasError(type)
     );
+  }
+
+  save() {
+    console.log('entro');
+    /* if (this.frmRegistro.invalid) {
+      return;
+    } */
+
+    const { id } = this.router.snapshot.params;
+    const data = this.frmRegistro.getRawValue();
+    this.causanteService.putActualizarPersona(id, data).subscribe();
   }
 }

@@ -1,5 +1,5 @@
 export interface Persona {
-  id: number;
+  id?: number;
   identificacion: number;
   tipoIdentificacion: string;
   nombres: string;

@@ -8,15 +8,21 @@
       <div class="card mt-2 mx-auto p-4 bg-light">
         <div class="card-body bg-light">
           <div class="container">
-            <form id="contact-form" role="form" [formGroup]="frmRegistro">
+            <form
+              id="contact-form"
+              role="form"
+              [formGroup]="frmRegistro"
+              (ngSubmit)="save()"
+            >
               <div class="controls">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_name">Numero de identificación *</label>
                       <input
-                        formControlName = "identificacion"
-                        id="form_name"
+                        formControlName="identificacion"
+                        id="identificacion"
+                        name="identificacion"
                         type="text"
                         name="name"
                         class="form-control"
@@ -24,15 +30,31 @@
                         required="required"
                         data-error="Firstname is required."
                       />
+                      <span
+                        *ngIf="validateInputs('identificacion', 'required')"
+                      >
+                        {{ "La identificacion es requerida" }}
+                      </span>
+
+                      <span
+                        *ngIf="validateInputs('identificacion', 'minlength')"
+                      >
+                        {{ "La identificacion es muy corta" }}
+                      </span>
+                      <span
+                        *ngIf="validateInputs('identificacion', 'maxlength')"
+                      >
+                        {{ "La identificacion es muy larga" }}
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_need">Tipo de documento *</label>
                       <select
-                        formControlName = "tipoIdentificacion"
-                        id="form_need"
-                        name="need"
+                        formControlName="tipoIdentificacion"
+                        id="tipoIdentificacion"
+                        name="tipoIdentificacion"
                         class="form-control"
                         required="required"
                         data-error="Ingresa tu tipo de documento"
@@ -45,6 +67,12 @@
                         <option>Pasaporte</option>
                         <option>Tarjeta de identidad</option>
                       </select>
+                      <span
+                        *ngIf="validateInputs('tipoIdentificacion', 'required')"
+                      >
+                        {{ "El tipo identificacion es requerida" }}
+                      </span>
+
                     </div>
                   </div>
                 </div>
@@ -53,30 +81,62 @@
                     <div class="form-group">
                       <label for="form_email">Nombres *</label>
                       <input
-                        formControlName = "nombres"
-                        id="form_email"
+                        formControlName="nombres"
+                        id="nombres"
                         type="email"
-                        name="email"
+                        name="nombres"
                         class="form-control"
                         placeholder="Please enter your email *"
                         required="required"
                         data-error="Valid email is required."
                       />
+                      <span
+                        *ngIf="validateInputs('nombres', 'required')"
+                      >
+                        {{ "Los nombres son requeridos" }}
+                      </span>
+
+                      <span
+                        *ngIf="validateInputs('nombres', 'minlength')"
+                      >
+                        {{ "Los nombres son muy cortos" }}
+                      </span>
+                      <span
+                        *ngIf="validateInputs('nombres', 'maxlength')"
+                      >
+                        {{ "Los nombres son muy largos" }}
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_email">Apellidos *</label>
                       <input
-                        formControlName = "apellidos"
-                        id="form_email"
+                        formControlName="apellidos"
+                        id="apellidos"
                         type="email"
-                        name="email"
+                        name="apellidos"
                         class="form-control"
                         placeholder="Please enter your email *"
                         required="required"
                         data-error="Valid email is required."
                       />
+                      <span
+                        *ngIf="validateInputs('apellidos', 'required')"
+                      >
+                        {{ "Los apellidos son requeridos" }}
+                      </span>
+
+                      <span
+                        *ngIf="validateInputs('apellidos', 'minlength')"
+                      >
+                        {{ "Los apellidos son muy cortos" }}
+                      </span>
+                      <span
+                        *ngIf="validateInputs('apellidos', 'maxlength')"
+                      >
+                        {{ "Los apellidos son muy largos" }}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -85,28 +145,38 @@
                     <div class="form-group">
                       <label for="form_name">Fecha de nacimiento *</label>
                       <input
-                        formControlName = "fechaNacimiento"
-                        id="form_name"
-                        type="text"
-                        name="name"
+                        formControlName="fechaNacimiento"
+                        id="fechaNacimiento"
+                        type="date"
+                        name="fechaNacimiento"
                         class="form-control"
                         placeholder="Ingresa tu fecha de nacimiento *"
                         required="required"
                         data-error="Firstname is required."
                       />
+                      <span
+                        *ngIf="validateInputs('fechaNacimiento', 'required')"
+                      >
+                        {{ "La fecha es requerida" }}
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_need">Genero *</label>
                       <select
-                        formControlName = "genero"
-                        id="form_need"
-                        name="need"
+                        formControlName="genero"
+                        id="genero"
+                        name="genero"
                         class="form-control"
                         required="required"
                         data-error="Ingresa tu genero"
                       >
+                      <span
+                        *ngIf="validateInputs('genero', 'required')"
+                      >
+                        {{ "El genero es requerido" }}
+                      </span>
                         <option value="" selected disabled>
                           --Seleccione su tipo de documento--
                         </option>
@@ -115,12 +185,13 @@
                       </select>
                     </div>
                   </div>
-                </div>                
+                </div>
               </div>
-              <button>Guardar</button>
+              <button type="submit">Guardar</button>
             </form>
           </div>
         </div>
-      </div>    
+      </div>
+    </div>
   </div>
 </div>

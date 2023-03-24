@@ -15,7 +15,14 @@ export class CausantesService {
     return this.http.get<Causante[]>(`${environment.api}listaCausante`);
   }
 
-  getpersona(id: number): Observable<Persona[]> {
-    return this.http.get<Persona[]>(`${environment.api}buscarPersona/${id}`);
+  getpersona(id: number): Observable<Persona> {
+    return this.http.get<Persona>(`${environment.api}buscarPersona/${id}`);
+  }
+
+  putActualizarPersona(id: number, persona: Persona): Observable<Persona> {
+    return this.http.put<Persona>(
+      `${environment.api}actualizarPersona/${id}`,
+      persona
+    );
   }
 }

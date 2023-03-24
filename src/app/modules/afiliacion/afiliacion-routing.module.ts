@@ -6,6 +6,7 @@ import { CausantesComponent } from './paginas/causantes/causantes.component';
 const routes: Routes = [
   { path: '', component: CausantesComponent },
   { path: 'editarPersona/:id', component: RegisterComponent },
+  { path: 'guardarPersona', component: RegisterComponent },
 ];
 
 @NgModule({
