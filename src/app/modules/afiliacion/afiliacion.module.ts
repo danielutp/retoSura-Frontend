@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AfiliacionRoutingModule } from './afiliacion-routing.module';
 import { RegisterComponent } from './componentes/register/register.component';
 import { RegisterBeneficiarioComponent } from './componentes/register-beneficiario/register-beneficiario.component';
-import { CausantesService } from './servicios/causantes.service';
 import { CausantesComponent } from './paginas/causantes/causantes.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,12 @@ import { CausantesComponent } from './paginas/causantes/causantes.component';
     RegisterBeneficiarioComponent,
     CausantesComponent,
   ],
-  imports: [CommonModule, AfiliacionRoutingModule],
+  imports: [
+    CommonModule,
+    AfiliacionRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   exports: [
     RegisterComponent,
     RegisterBeneficiarioComponent,
