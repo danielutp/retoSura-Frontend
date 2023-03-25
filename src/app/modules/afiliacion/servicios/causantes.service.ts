@@ -15,6 +15,18 @@ export class CausantesService {
     return this.http.get<Causante[]>(`${environment.api}listaCausante`);
   }
 
+  postcausante(causante: Causante): Observable<Causante> {
+    console.log(causante);
+    return this.http.post<Causante>(
+      `${environment.api}crearCausante`,
+      causante
+    );
+  }
+  postpersona(persona: Persona): Observable<Persona> {
+    console.log(persona);
+    return this.http.post<Persona>(`${environment.api}crearPersona`, persona);
+  }
+
   getpersona(id: number): Observable<Persona> {
     return this.http.get<Persona>(`${environment.api}buscarPersona/${id}`);
   }
@@ -23,6 +35,12 @@ export class CausantesService {
     return this.http.put<Persona>(
       `${environment.api}actualizarPersona/${id}`,
       persona
+    );
+  }
+
+  getpensionado(id: number): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${environment.apiM}verificarPensionado/${id}`
     );
   }
 }

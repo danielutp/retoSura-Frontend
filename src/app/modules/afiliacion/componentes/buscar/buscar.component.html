@@ -1,0 +1,25 @@
+<div class="container">
+    <form [formGroup]="frmBuscador" (ngSubmit)="validarPensionado()">
+        <div class="mb-3">
+            <label for="identificacion" class="form-label">Identificacion causante:</label>
+            <input type="text" formControlName="identificacion" id="identificacion" class="form-control" placeholder="105878831">
+            <span
+            *ngIf="validateInputs('identificacion', 'required')"
+          >
+            {{ "La identificacion es requerida" }}
+          </span>
+
+          <span
+            *ngIf="validateInputs('identificacion', 'minlength')"
+          >
+            {{ "La identificacion es muy corta" }}
+          </span>
+          <span
+            *ngIf="validateInputs('identificacion', 'maxlength')"
+          >
+            {{ "La identificacion es muy larga" }}
+          </span>  
+        </div>
+          <button type="submit">Buscar</button>        
+    </form>
+</div>

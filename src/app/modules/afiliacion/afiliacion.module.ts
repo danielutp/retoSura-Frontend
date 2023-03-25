@@ -6,12 +6,14 @@ import { RegisterComponent } from './componentes/register/register.component';
 import { RegisterBeneficiarioComponent } from './componentes/register-beneficiario/register-beneficiario.component';
 import { CausantesComponent } from './paginas/causantes/causantes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BuscarComponent } from './componentes/buscar/buscar.component';
 
 @NgModule({
   declarations: [
     RegisterComponent,
     RegisterBeneficiarioComponent,
     CausantesComponent,
+    BuscarComponent,
   ],
   imports: [
     CommonModule,

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Persona } from '../../interfaces/Persona';
 import { ActivatedRoute } from '@angular/router';
 import { CausantesService } from '../../servicios/causantes.service';
+import { Causante } from '../../interfaces/Causante';
+import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -10,13 +12,18 @@ import { CausantesService } from '../../servicios/causantes.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  vista: boolean;
   frmRegistro: FormGroup;
   persona: Persona;
+  tipo: Boolean;
+
   constructor(
     private fb: FormBuilder,
     private router: ActivatedRoute,
     private causanteService: CausantesService
   ) {
+    this.vista = false;
+    this.tipo = false;
     this.persona = {} as Persona;
     this.frmRegistro = this.fb.group({
       identificacion: [
@@ -51,6 +58,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     const { id } = this.router.snapshot.params;
     if (id) {
+      this.tipo = true;
       this.causanteService.getpersona(id).subscribe((ele: Persona) => {
         this.frmRegistro.patchValue({
           identificacion: ele.identificacion,
@@ -73,13 +81,32 @@ export class RegisterComponent implements OnInit {
   }
 
   save() {
-    console.log('entro');
-    /* if (this.frmRegistro.invalid) {
-      return;
-    } */
-
     const { id } = this.router.snapshot.params;
     const data = this.frmRegistro.getRawValue();
-    this.causanteService.putActualizarPersona(id, data).subscribe();
+    if (id) {
+      this.causanteService.putActualizarPersona(id, data).subscribe();
+    } else {
+      const persona = this.frmRegistro.getRawValue();
+
+      this.causanteService
+        .postpersona(persona)
+        .pipe(
+          concatMap((data) => {
+            console.log('map' + data);
+            const causante: Causante = {
+              persona: data,
+            };
+            return this.causanteService.postcausante(causante);
+          })
+        )
+        .subscribe((ele) => console.log(ele));
+
+      /* 
+      this.causanteService.postcausante(persona).subscribe(); */
+    }
+  }
+
+  cambio(data: boolean) {
+    this.vista = data;
   }
 }
