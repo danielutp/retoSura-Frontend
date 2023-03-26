@@ -5,15 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AfiliacionModule } from './modules/afiliacion/afiliacion.module';
-import { RegisterComponent } from './modules/beneficiario/register/register.component';
+import { MenuComponent } from './modules/shared/menu/menu.component';
+import { BeneficiarioModule } from './modules/beneficiario/beneficiario.module';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent],
+  declarations: [AppComponent, MenuComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AfiliacionModule,
+    BeneficiarioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

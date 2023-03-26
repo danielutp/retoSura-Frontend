@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Persona } from '../../interfaces/Persona';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CausantesService } from '../../servicios/causantes.service';
 import { Causante } from '../../interfaces/Causante';
 import { ICausante } from '../../interfaces/ICausante';
@@ -21,7 +21,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: ActivatedRoute,
-    private causanteService: CausantesService
+    private causanteService: CausantesService,
+    private routerBeneficiario: Router
   ) {
     this.vista = false;
     this.tipo = false;
@@ -83,7 +84,7 @@ export class RegisterComponent implements OnInit {
   }
 
   save() {
-    const { id } = this.router.snapshot.params;
+    /* const { id } = this.router.snapshot.params;
     const data = this.frmRegistro.getRawValue();
     if (id) {
       this.causanteService.putActualizarPersona(id, data).subscribe();
@@ -103,11 +104,8 @@ export class RegisterComponent implements OnInit {
             return this.causanteService.postcausante(causante);
           })
         )
-        .subscribe((ele) => console.log(ele));
-
-      /* 
-      this.causanteService.postcausante(persona).subscribe(); */
-    }
+        .subscribe((ele) => console.log(ele)); */
+    this.routerBeneficiario.navigate(['/beneficiario/agregar']);
   }
 
   cambio(data: boolean) {
