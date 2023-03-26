@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Causante } from '../interfaces/Causante';
+import { ICausante } from '../interfaces/ICausante';
 import { environment } from 'src/environments/environment';
 import { Persona } from '../interfaces/Persona';
 
@@ -15,9 +16,9 @@ export class CausantesService {
     return this.http.get<Causante[]>(`${environment.api}listaCausante`);
   }
 
-  postcausante(causante: Causante): Observable<Causante> {
+  postcausante(causante: ICausante): Observable<ICausante> {
     console.log(causante);
-    return this.http.post<Causante>(
+    return this.http.post<ICausante>(
       `${environment.api}crearCausante`,
       causante
     );

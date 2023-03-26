@@ -4,6 +4,7 @@ import { Persona } from '../../interfaces/Persona';
 import { ActivatedRoute } from '@angular/router';
 import { CausantesService } from '../../servicios/causantes.service';
 import { Causante } from '../../interfaces/Causante';
+import { ICausante } from '../../interfaces/ICausante';
 import { concatMap } from 'rxjs';
 
 @Component({
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     const { id } = this.router.snapshot.params;
     if (id) {
+      this.vista = true;
       this.tipo = true;
       this.causanteService.getpersona(id).subscribe((ele: Persona) => {
         this.frmRegistro.patchValue({
@@ -93,8 +95,10 @@ export class RegisterComponent implements OnInit {
         .pipe(
           concatMap((data) => {
             console.log('map' + data);
-            const causante: Causante = {
-              persona: data,
+            const causante: ICausante = {
+              persona: {
+                id: data.id!,
+              },
             };
             return this.causanteService.postcausante(causante);
           })
