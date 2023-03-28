@@ -1,11 +1,11 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Persona } from '../../interfaces/Persona';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CausantesService } from '../../servicios/causantes.service';
-import { Causante } from '../../interfaces/Causante';
 import { ICausante } from '../../interfaces/ICausante';
 import { concatMap } from 'rxjs';
+import { IRenta } from '../../interfaces/IRenta';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: ActivatedRoute,
     private causanteService: CausantesService,
-    private routerBeneficiario: Router
+    private routerBeneficiario: Router,
+    private routerA: Router
   ) {
     this.vista = false;
     this.tipo = false;
@@ -84,13 +85,14 @@ export class RegisterComponent implements OnInit {
   }
 
   save() {
-    /* const { id } = this.router.snapshot.params;
+    const { id } = this.router.snapshot.params;
     const data = this.frmRegistro.getRawValue();
+    const objectCausante = {};
     if (id) {
       this.causanteService.putActualizarPersona(id, data).subscribe();
+      this.routerA.navigate(['/']);
     } else {
       const persona = this.frmRegistro.getRawValue();
-
       this.causanteService
         .postpersona(persona)
         .pipe(
@@ -104,10 +106,24 @@ export class RegisterComponent implements OnInit {
             return this.causanteService.postcausante(causante);
           })
         )
-        .subscribe((ele) => console.log(ele)); */
-    this.routerBeneficiario.navigate(['/beneficiario/agregar']);
+        .subscribe((ele) => console.log(ele));
+      this.causanteService
+        .getRenta(this.persona.identificacion)
+        .pipe(
+          concatMap((data) => {
+            console.log('map' + data);
+            const renta: IRenta = {
+              fechaSolicitud: new Date(),
+              salario: data.salario,
+              mesesCotizando: data.mesesCotizando,
+            };
+            return this.causanteService.postRenta(renta);
+          })
+        )
+        .subscribe();
+      this.routerBeneficiario.navigate(['/beneficiario/agregar']);
+    }
   }
-
   cambio(data: boolean) {
     this.vista = data;
   }

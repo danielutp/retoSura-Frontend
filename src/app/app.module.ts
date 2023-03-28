@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AfiliacionModule } from './modules/afiliacion/afiliacion.module';
-import { MenuComponent } from './modules/shared/menu/menu.component';
 import { BeneficiarioModule } from './modules/beneficiario/beneficiario.module';
+import { HeaderComponent } from './modules/shared/header/header.component';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

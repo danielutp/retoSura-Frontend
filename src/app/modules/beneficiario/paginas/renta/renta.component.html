@@ -1,0 +1,40 @@
+<div class="w-100 mt-5 d-flex justify-content-center align-items-center">
+  <form
+    class="w-25 shadow rounded p-5"
+    [formGroup]="frmRegistro"
+    (ngSubmit)="save()"
+    *ngIf="type;else resultado"
+  >
+    <div class="form-group mb-3">
+      <label for="form_name">Numero de identificación *</label>
+      <input
+        formControlName="identificacion"
+        id="identificacion"
+        name="identificacion"
+        type="text"
+        name="name"
+        class="form-control"
+        placeholder="Ingresa tu numero de identificación *"
+        required="required"
+        data-error="Firstname is required."
+      />
+      <span *ngIf="validateInputs('identificacion', 'required')">
+        {{ "La identificacion es requerida" }}
+      </span>
+
+      <span *ngIf="validateInputs('identificacion', 'minlength')">
+        {{ "La identificacion es muy corta" }}
+      </span>
+      <span *ngIf="validateInputs('identificacion', 'maxlength')">
+        {{ "La identificacion es muy larga" }}
+      </span>
+    </div>
+    <button class="btn btn-primary">Buscar causante</button>
+  </form>
+</div>
+<ng-template #resultado>
+    <div class="w-25 shadow rounded p-5 d-flex flex-column">
+        <label for="">Resultado : {{total | currency }}</label>
+        <button class="btn btn-danger" (click)="volver()">volver</button>
+    </div>
+</ng-template>

@@ -5,6 +5,7 @@ import { Causante } from '../interfaces/Causante';
 import { ICausante } from '../interfaces/ICausante';
 import { environment } from 'src/environments/environment';
 import { Persona } from '../interfaces/Persona';
+import { IRenta } from '../interfaces/IRenta';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,7 @@ export class CausantesService {
       causante
     );
   }
+
   postpersona(persona: Persona): Observable<Persona> {
     console.log(persona);
     return this.http.post<Persona>(`${environment.api}crearPersona`, persona);
@@ -43,5 +45,14 @@ export class CausantesService {
     return this.http.get<boolean>(
       `${environment.apiM}verificarPensionado/${id}`
     );
+  }
+
+  getRenta(id: number): Observable<IRenta> {
+    return this.http.get<IRenta>(`${environment.apiM}datosPensionado/${id}`);
+  }
+
+  postRenta(renta: IRenta): Observable<IRenta> {
+    console.log(renta);
+    return this.http.post<IRenta>(`${environment.api}crearRenta`, renta);
   }
 }

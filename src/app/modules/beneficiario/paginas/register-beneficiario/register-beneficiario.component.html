@@ -1,1 +1,257 @@
-<p>register-beneficiario works!</p>
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Beneficiario</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-7 mx-auto">
+      <div class="card mt-2 mx-auto p-4 bg-light">
+        <div class="card-body bg-light">
+          <div class="container">
+            <form id="contact-form" [formGroup]="frmRegistro" (ngSubmit)="save()" role="form">
+              <div class="controls">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Estudiante *</label>
+                      <select
+                        formControlName="estudiante"
+                        id="estudiante"
+                        name="estudiante"
+                        class="form-control"
+                        required="required"
+                        data-error="Ingresa si aun estudias "
+                      >
+                        <option value="" selected disabled>
+                          --Seleccione si aun estudias--
+                        </option>
+                        <option [value]="true">Si</option>
+                        <option [value]="false">No</option>                        
+                      </select>
+                      <span
+                        *ngIf="validateInputs('estudiante', 'required')"
+                      >
+                        {{ "Saber si eres estudiante es requerida" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Dependiente *</label>
+                      <select
+                        formControlName="dependiente"
+                        id="dependiente"
+                        name="dependiente"
+                        class="form-control"
+                        required="required"
+                        data-error="Ingresa si dependes del causante"
+                      >
+                        <option value="" selected disabled>
+                          --Seleccione si dependes del causante--
+                        </option>
+                        <option [value]="true">Si</option>
+                        <option [value]="false">No</option>                        
+                      </select>
+                      <span
+                        *ngIf="validateInputs('dependiente', 'required')"
+                      >
+                        {{ "Saber si dependes del causante es requerida" }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Tipo de beneficiario *</label>
+                      <select
+                        formControlName="tipoBeneficiario"
+                        id="tipoBeneficiario"
+                        name="tipoBeneficiario"
+                        class="form-control"
+                        required="required"
+                        data-error="Ingresa que eres del causante"
+                      >
+                        <option value="" selected disabled>
+                          --Seleccione que eres del causante--
+                        </option>
+                        <option value="Hijo/Hija">Hijo/Hija</option>
+                        <option value="Cónyuge">Cónyuge</option>
+                        <option value="Padre">Padre</option>
+                        <option value="Madre">Madre</option>
+                        <option value="Compañero">Compañero</option>
+                      </select>
+                      <span
+                        *ngIf="validateInputs('tipoBeneficiario', 'required')"
+                      >
+                        {{ "Saber que eres del causante es requerida" }}
+                      </span>
+                    </div>
+                  </div>                 
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_name">Numero de identificación *</label>
+                      <input
+                        formControlName="identificacion"
+                        id="identificacion"
+                        name="identificacion"
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Ingresa tu numero de identificación *"
+                        required="required"
+                        data-error="Firstname is required."
+                      />
+                      <span
+                        *ngIf="validateInputs('identificacion', 'required')"
+                      >
+                        {{ "La identificacion es requerida" }}
+                      </span>
+
+                      <span
+                        *ngIf="validateInputs('identificacion', 'minlength')"
+                      >
+                        {{ "La identificacion es muy corta" }}
+                      </span>
+                      <span
+                        *ngIf="validateInputs('identificacion', 'maxlength')"
+                      >
+                        {{ "La identificacion es muy larga" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Tipo de documento *</label>
+                      <select
+                        formControlName="tipoIdentificacion"
+                        id="tipoIdentificacion"
+                        name="tipoIdentificacion"
+                        class="form-control"
+                        required="required"
+                        data-error="Ingresa tu tipo de documento"
+                      >
+                        <option value="" selected disabled>
+                          --Seleccione su tipo de documento--
+                        </option>
+                        <option value="Cedula">Cedula</option>
+                        <option value="Cedula de extranjería">Cedula de extranjería</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                        <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                      </select>
+                      <span
+                        *ngIf="validateInputs('tipoIdentificacion', 'required')"
+                      >
+                        {{ "El tipo identificacion es requerida" }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_email">Nombres *</label>
+                      <input
+                        formControlName="nombres"
+                        id="nombres"
+                        type="text"
+                        name="nombres"
+                        class="form-control"
+                        placeholder="Please enter your email *"
+                        required="required"
+                        data-error="Valid email is required."
+                      />
+                      <span *ngIf="validateInputs('nombres', 'required')">
+                        {{ "Los nombres son requeridos" }}
+                      </span>
+
+                      <span *ngIf="validateInputs('nombres', 'minlength')">
+                        {{ "Los nombres son muy cortos" }}
+                      </span>
+                      <span *ngIf="validateInputs('nombres', 'maxlength')">
+                        {{ "Los nombres son muy largos" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_email">Apellidos *</label>
+                      <input
+                        formControlName="apellidos"
+                        id="apellidos"
+                        type="text"
+                        name="apellidos"
+                        class="form-control"
+                        placeholder="Please enter your email *"
+                        required="required"
+                        data-error="Valid email is required."
+                      />
+                      <span *ngIf="validateInputs('apellidos', 'required')">
+                        {{ "Los apellidos son requeridos" }}
+                      </span>
+
+                      <span *ngIf="validateInputs('apellidos', 'minlength')">
+                        {{ "Los apellidos son muy cortos" }}
+                      </span>
+                      <span *ngIf="validateInputs('apellidos', 'maxlength')">
+                        {{ "Los apellidos son muy largos" }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_name">Fecha de nacimiento *</label>
+                      <input
+                        formControlName="fechaNacimiento"
+                        id="fechaNacimiento"
+                        type="date"
+                        name="fechaNacimiento"
+                        class="form-control"
+                        placeholder="Ingresa tu fecha de nacimiento *"
+                        required="required"
+                        data-error="Firstname is required."
+                      />
+                      <span
+                        *ngIf="validateInputs('fechaNacimiento', 'required')"
+                      >
+                        {{ "La fecha es requerida" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Genero *</label>
+                      <select
+                        formControlName="genero"
+                        id="genero"
+                        name="genero"
+                        class="form-control"
+                        required="required"
+                        data-error="Ingresa tu genero"
+                      >
+                        <span *ngIf="validateInputs('genero', 'required')">
+                          {{ "El genero es requerido" }}
+                        </span>
+                        <option value="" selected disabled>
+                          --Seleccione su tipo de documento--
+                        </option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-3">
+                <button type="submit"  class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
