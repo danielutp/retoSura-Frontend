@@ -1,0 +1,204 @@
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Compañia Arus</h1>
+    <h2>{{tipo ? "Actualizar causante" : "Registro de causante"}}</h2>
+  </div>
+  <div class="row">
+    <div class="col-lg-7 mx-auto">
+      <div class="card mt-2 mx-auto p-4 bg-light">
+        <div class="card-body bg-light">
+          <div class="container" *ngIf="vista; else buscador"> 
+            <form
+              id="contact-form"
+              role="form"
+              [formGroup]="frmRegistro"
+              (ngSubmit)="save()"
+            >
+              <div class="controls">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_name">Numero de identificación *</label>
+                      <input
+                        formControlName="identificacion"
+                        id="identificacion"
+                        name="identificacion"
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Ingresa tu numero de identificación *"
+                        required="required"
+                        data-error="Firstname is required."
+                      />
+                      <span
+                        *ngIf="validateInputs('identificacion', 'required')"
+                      >
+                        {{ "La identificacion es requerida" }}
+                      </span>
+
+                      <span
+                        *ngIf="validateInputs('identificacion', 'minlength')"
+                      >
+                        {{ "La identificacion es muy corta" }}
+                      </span>
+                      <span
+                        *ngIf="validateInputs('identificacion', 'maxlength')"
+                      >
+                        {{ "La identificacion es muy larga" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Tipo de documento *</label>
+                      <select
+                        formControlName="tipoIdentificacion"
+                        id="tipoIdentificacion"
+                        name="tipoIdentificacion"
+                        class="form-control"
+                        required="required"
+                        data-error="Ingresa tu tipo de documento"
+                      >
+                        <option value="" selected disabled>
+                          --Seleccione su tipo de documento--
+                        </option>
+                        <option>Cedula</option>
+                        <option>Cedula de extranjería</option>
+                        <option>Pasaporte</option>
+                        <option>Tarjeta de identidad</option>
+                      </select>
+                      <span
+                        *ngIf="validateInputs('tipoIdentificacion', 'required')"
+                      >
+                        {{ "El tipo identificacion es requerida" }}
+                      </span>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_email">Nombres *</label>
+                      <input
+                        formControlName="nombres"
+                        id="nombres"
+                        type="email"
+                        name="nombres"
+                        class="form-control"
+                        placeholder="Please enter your email *"
+                        required="required"
+                        data-error="Valid email is required."
+                      />
+                      <span
+                        *ngIf="validateInputs('nombres', 'required')"
+                      >
+                        {{ "Los nombres son requeridos" }}
+                      </span>
+
+                      <span
+                        *ngIf="validateInputs('nombres', 'minlength')"
+                      >
+                        {{ "Los nombres son muy cortos" }}
+                      </span>
+                      <span
+                        *ngIf="validateInputs('nombres', 'maxlength')"
+                      >
+                        {{ "Los nombres son muy largos" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_email">Apellidos *</label>
+                      <input
+                        formControlName="apellidos"
+                        id="apellidos"
+                        type="email"
+                        name="apellidos"
+                        class="form-control"
+                        placeholder="Please enter your email *"
+                        required="required"
+                        data-error="Valid email is required."
+                      />
+                      <span
+                        *ngIf="validateInputs('apellidos', 'required')"
+                      >
+                        {{ "Los apellidos son requeridos" }}
+                      </span>
+
+                      <span
+                        *ngIf="validateInputs('apellidos', 'minlength')"
+                      >
+                        {{ "Los apellidos son muy cortos" }}
+                      </span>
+                      <span
+                        *ngIf="validateInputs('apellidos', 'maxlength')"
+                      >
+                        {{ "Los apellidos son muy largos" }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_name">Fecha de nacimiento *</label>
+                      <input
+                        formControlName="fechaNacimiento"
+                        id="fechaNacimiento"
+                        type="date"
+                        name="fechaNacimiento"
+                        class="form-control"
+                        placeholder="Ingresa tu fecha de nacimiento *"
+                        required="required"
+                        data-error="Firstname is required."
+                      />
+                      <span
+                        *ngIf="validateInputs('fechaNacimiento', 'required')"
+                      >
+                        {{ "La fecha es requerida" }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">Genero *</label>
+                      <select
+                        formControlName="genero"
+                        id="genero"
+                        name="genero"
+                        class="form-control"
+                        required="required"
+                        data-error="Ingresa tu genero"
+                      >
+                      <span
+                        *ngIf="validateInputs('genero', 'required')"
+                      >
+                        {{ "El genero es requerido" }}
+                      </span>
+                        <option value="" selected disabled>
+                          --Seleccione su tipo de documento--
+                        </option>
+                        <option>Masculino</option>
+                        <option>Femenino</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-3">
+                <button type="submit" class="btn btn-primary">{{tipo ? "Editar causante" : "Nuevo causante"}}</button>
+                <a class="btn btn-danger" routerLink="/">Volver</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #buscador>
+  <app-buscar (state)="cambio($event)"></app-buscar>
+</ng-template>

@@ -1,0 +1,32 @@
+<div class="container">
+    <a routerLink="guardarPersona" class="btn btn-success">
+        Nuevo Registro
+    </a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">identificación</th>
+          <th scope="col">Tipo de identificacion</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Fecha de nacimiento</th>
+          <th scope="col">Genero</th>
+          <th scope="col">Accciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let persona of causante">
+          <th scope="row">{{persona.persona.id}}</th>
+          <td>{{persona.persona.identificacion}}</td>
+          <td>{{persona.persona.tipoIdentificacion}}</td>
+          <td>{{persona.persona.nombres}}</td>
+          <td>{{persona.persona.apellidos}}</td>          
+          <td>{{persona.persona.fechaNacimiento |date}}</td>             
+          <td>{{persona.persona.genero}}</td>
+          <td class=""><a routerLink="editarPersona/{{persona.persona.id}}" class="btn btn-primary">Editar</a><button class="btn btn-danger">Eliminar</button></td>          
+        </tr>        
+      </tbody>
+    </table>
+  </div>
+  
